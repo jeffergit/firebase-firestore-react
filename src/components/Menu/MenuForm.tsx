@@ -32,21 +32,26 @@ function MenuForm({
       const { name, category, cost, price, stock, options } = formData;
       formRef?.current?.setFieldsValue({
         name,
-        category: category?.id,
+        categoryId: category?.id,
         cost,
         price,
         stock,
         options,
       });
     } else {
-      formRef?.current?.resetFields();
+      resetForm();
     }
   }, [formData]);
+
+  const resetForm = () => {
+    formRef?.current?.resetFields();
+  };
 
   const onFinish = async (payload: Imenu) => {
     if (formUpdateId) {
       try {
         await menuUpdate(payload, formUpdateId);
+        resetForm();
         modalClose();
         message.success({
           content: "Submit success!",
@@ -66,6 +71,7 @@ function MenuForm({
     } else {
       try {
         await menuSave(payload);
+        resetForm();
         modalClose();
         message.success({
           content: "Submit success!",
@@ -96,6 +102,9 @@ function MenuForm({
         size="middle"
         requiredMark={false}
         scrollToFirstError={true}
+        initialValues={{
+          options: [],
+        }}
         onFinish={onFinish}
       >
         <div className="form__items_container">
