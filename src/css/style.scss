@@ -65,7 +65,10 @@ $footer_height: 50px;
   display: block;
   width: 100%;
   min-height: calc(100vh - (#{$header_height} + #{$footer_height}));
-  padding: 30px;
+  padding: 5px;
+  @media screen and (min-width:500px) {
+    padding: 30px;
+  }
   .content__card {
     display: block;
     width: 100%;
